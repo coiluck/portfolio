@@ -1,0 +1,31 @@
+---
+// 番号は親の counter-reset: sec から連番で振られる
+---
+<h2 class="section-title"><slot /></h2>
+
+<style>
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: normal;
+    counter-increment: sec;
+  }
+  .section-title::before {
+    content: counter(sec, decimal-leading-zero);
+    width: 2.6rem;
+    color: var(--text-dark);
+    background-color: var(--accent);
+    font-size: .8rem;
+    text-align: center;
+    clip-path: polygon(22% 0, 100% 0, 78% 100%, 0 100%);
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: rgb(from var(--text) r g b / .7);
+  }
+</style>

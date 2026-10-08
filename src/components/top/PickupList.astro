@@ -1,0 +1,109 @@
+---
+import Tag from '../Tag.astro';
+import { getFeaturedWorks } from '../../utils/getWorks';
+import { withBase } from '../../utils/path';
+
+const featuredWorks = await getFeaturedWorks();
+---
+<ul class="pickup">
+  {featuredWorks.map(({ work, post }) => (
+    <li>
+      <a class="pickup-card" href={withBase(`/works/${post.id}/`)}>
+        <div class="pickup-thumb">
+          {work.data.thumbnailSrc && <img src={work.data.thumbnailSrc} alt="" loading="lazy" />}
+        </div>
+        <div class="pickup-body">
+          <div class="pickup-head">
+            <span class="pickup-title">{work.data.title}</span>
+            <time datetime={work.data.date}>{work.data.date.replaceAll('-', '.')}</time>
+          </div>
+          {work.data.description && <p class="pickup-description">{work.data.description}</p>}
+          {work.data.tags.length > 0 && (
+            <div class="pickup-tags">
+              {work.data.tags.map((tag) => <Tag>{tag}</Tag>)}
+            </div>
+          )}
+          <span class="pickup-read">詳細を読む</span>
+        </div>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .pickup {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.2rem;
+    list-style: none;
+  }
+  .pickup-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: var(--text);
+    text-decoration: none;
+    background-color: rgb(from var(--bg-mild) r g b / .45);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.2rem), calc(100% - 1.2rem) 100%, 0 100%);
+    transition: background-color .3s;
+  }
+  .pickup-thumb {
+    aspect-ratio: 16 / 9;
+    background: repeating-linear-gradient(-45deg, rgb(from var(--text) r g b / .06) 0 8px, transparent 8px 16px);
+    border-bottom: 2px solid var(--accent);
+    overflow: hidden;
+  }
+  .pickup-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: scale .4s;
+  }
+  .pickup-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: .4rem;
+    padding: .8rem 1rem 1.2rem;
+  }
+  .pickup-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .5rem;
+  }
+  .pickup-title {
+    font-size: 1.15rem;
+  }
+  .pickup-head time {
+    font-size: .75rem;
+    opacity: .7;
+  }
+  .pickup-description {
+    font-size: .8rem;
+    opacity: .75;
+  }
+  .pickup-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .pickup-read {
+    margin-top: auto;
+    padding-top: .4rem;
+    font-size: .8rem;
+    color: var(--accent);
+  }
+  .pickup-read::after {
+    content: ' →';
+  }
+  @media (hover: hover) {
+    .pickup-card:hover {
+      background-color: rgb(from var(--bg-mild) r g b / .75);
+    }
+    .pickup-card:hover .pickup-thumb img {
+      scale: 1.08;
+    }
+  }
+</style>

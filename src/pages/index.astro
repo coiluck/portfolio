@@ -1,17 +1,48 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Hero from '../components/top/Hero.astro';
+import SkillTable from '../components/top/SkillTable.astro';
+import PickupList from '../components/top/PickupList.astro';
+import WorksTimeline from '../components/top/WorksTimeline.astro';
 
+const skills = [
+  { category: 'Language',  items: ['TypeScript', 'Python'] },
+  { category: 'Framework', items: ['Astro', 'React'] },
+  { category: 'Tool',      items: ['Git'] },
+];
 ---
+<Layout ogDescription="ポートフォリオ">
+  <main>
+    <Hero />
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+    <section>
+      <SectionTitle>About</SectionTitle>
+      <p>法学部に通う2028年卒業予定の学生です。大学に入ってから独学でプログラミングを始め、TypeScript と React を中心に、ゲームなどを個人で作り続けています。完成したら友人に遊んでもらい、その感想を次の作品に活かすことを3年間続けてきました。そのうち1本は DLsite で販売しています。</p>
+      <p>現在は就活支援サービスを運営する会社でフロントエンドのアルバイトをしながら、実際のコードベースで開発しています。今後は使う人の不便を出発点に、もっと多くの人に届くプロダクトを作りたいと考えています。</p>
+      <SkillTable skills={skills} />
+    </section>
+
+    <section>
+      <SectionTitle>Posts</SectionTitle>
+      <PickupList />
+    </section>
+
+    <section>
+      <SectionTitle>Works</SectionTitle>
+      <WorksTimeline />
+    </section>
+  </main>
+
+  <style>
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      width: 70%;
+      margin: 0 auto;
+      padding: 5rem 1rem;
+      counter-reset: sec;
+    }
+  </style>
+</Layout>

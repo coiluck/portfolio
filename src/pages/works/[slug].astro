@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getSortedPosts, renderPost } from '../../utils/getWorks';
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+
+  return posts.map(({ work, post }) => {
+    return {
+      params: { slug: post.id },
+      props: { work, post },
+    };
+  });
+}
+
+const { work, post } = Astro.props;
+
+const { Content } = await renderPost(post);
+---
+<Layout pageTitle={work.data.title}>
+  <div class="content">
+    <Content />
+  </div>
+</Layout>

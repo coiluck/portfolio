@@ -1,0 +1,127 @@
+- id: glacia
+  title: 氷途
+  description: ソシャゲ
+  date: "2026-06-30"
+  tags: [web, game]
+  link: https://coiluck.moe/project-glacia/
+  featured: true
+  post: glacia
+
+- id: kokone-music-for-mobile
+  title: SymPony Music
+  description: ローカル音楽再生アプリ（進化版）
+  date: "2026-05-17"
+  tags: [tools, exe-app, apk]
+  link: https://github.com/coiluck/kokone-music-for-mobile/releases/tag/1.1.0
+
+- id: big-dog
+  title: きょだいぬ
+  description: 横スクロールゲーム
+  date: "2026-05-10"
+  tags: [game, web]
+  link: https://coiluck.github.io/big-dog/
+
+- id: dreams-of-the-defeated
+  title: Dreams of the Defeated
+  description: 戦争シミュレーションゲーム
+  date: "2026-04-15"
+  tags: [game, exe-app]
+  link: https://github.com/coiluck/dreams-of-the-defeated/releases/tag/0.1.0
+
+- id: tsukuyomi-switch
+  title: ツクヨミスイッチ
+  description: TSノベルゲーム
+  date: "2026-03-01"
+  tags: [game, novel-game, exe-app]
+  link: https://www.dlsite.com/ai/work/=/product_id/RJ01575101.html
+
+- id: kokone-books
+  title: Kokone Books
+  description: 読み終わった本の管理アプリ
+  date: "2026-02-01"
+  tags: [tools, exe-app]
+  link: https://github.com/coiluck/kokone-books/releases/tag/0.1.0
+
+- id: CountryChainApp
+  title: 国境しりとり（アプリ）
+  description: 接している国を交互に言い合うゲーム
+  date: "2026-01-05"
+  tags: [game, exe-app, apk]
+  link: https://github.com/coiluck/CountryChainApp/releases/tag/1.0.0
+
+- id: kokone-music
+  title: Kokone Music
+  description: ローカル音楽再生アプリ
+  date: "2025-12-09"
+  tags: [tools, exe-app]
+  link: https://github.com/coiluck/kokone-music/releases/tag/1.2.1
+
+- id: DiceMonster
+  title: 六面天運
+  description: ダイスをそろえて戦うローグライクゲーム
+  date: "2025-10-10"
+  tags: [game, rogue-like, exe-app]
+  link: https://github.com/coiluck/DiceMonster/releases/tag/v1.0.1
+
+- id: BlueHorizon
+  title: 蒼の最果てと水平線
+  description: 海の世界のノベルゲーム
+  date: "2025-09-17"
+  tags: [game, novel-game, web]
+  link: https://coiluck.github.io/BlueHorizon/
+
+- id: ElementResonance
+  title: 自然共鳴
+  description: ローグライクカードゲーム
+  date: "2025-07-17"
+  tags: [game, rogue-like, web]
+  link: https://coiluck.moe/ElementResonance/
+
+- id: history-game
+  title: 歴史の扉
+  description: 人物の年代を比べるゲーム
+  date: "2025-06-01"
+  tags: [game, web]
+  link: https://coiluck.github.io/history-game/
+
+- id: SinkendenSonne
+  title: 陽の沈む場所
+  description: 月面を開発するノベルゲーム
+  date: "2025-04-21"
+  tags: [game, novel-game, web]
+  link: https://coiluck.github.io/SinkendenSonne/
+
+- id: CountryChain
+  title: 国境しりとり
+  description: 接している国を交互に言い合うゲーム
+  date: "2025-04-01"
+  tags: [game, web]
+  link: https://coiluck.github.io/CountryChain/
+
+- id: truth-edokko
+  title: 真の江戸っ子になれ！
+  description: お金を使い切るゲーム
+  date: "2025-03-19"
+  tags: [game, web]
+  link: https://coiluck.github.io/truth-edokko/
+
+- id: anya
+  title: アーニャのお仕事体験記
+  description: ギャグノベルゲーム
+  date: "2024-11-26"
+  tags: [game, novel-game, web]
+  link: https://coiluck.github.io/anya/
+
+- id: nongenerate-generater
+  title: 絶対に決める
+  description: 何か決めたいとき用
+  date: "2024-11-15"
+  tags: [tools, web]
+  link: https://coiluck.github.io/nongenerate-generater/
+
+- id: blog
+  title: 個人サイト
+  description: Astro大好き
+  date: "2023-12-23"
+  tags: [web]
+  link: https://coiluck.github.io/

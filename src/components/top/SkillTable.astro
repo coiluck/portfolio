@@ -1,0 +1,47 @@
+---
+import Tag from '../Tag.astro';
+
+interface Props {
+  skills: { category: string; items: string[] }[];
+}
+
+const { skills } = Astro.props;
+---
+<dl class="skills">
+  {skills.map(skill => (
+    <div class="skill-row">
+      <dt>{skill.category}</dt>
+      <dd>
+        {skill.items.map((item) => <Tag>{item}</Tag>)}
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .skills {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin-top: 1.2rem;
+    border-top: 1px solid rgb(from var(--text) r g b / .35);
+  }
+  .skill-row {
+    display: contents;
+  }
+  .skill-row dt, .skill-row dd {
+    padding: .55rem .6rem;
+    border-bottom: 1px solid rgb(from var(--text) r g b / .35);
+  }
+  .skill-row dt {
+    align-content: center;
+    font-size: .8rem;
+    font-style: italic;
+    opacity: .7;
+  }
+  .skill-row dd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding-left: clamp(1rem, 4vw, 3rem); /* 400 ~ 1200 */
+  }
+</style>

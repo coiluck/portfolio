@@ -1,0 +1,136 @@
+---
+import BlogLine from '../BlogLine.astro';
+import Tag from '../Tag.astro';
+import { getWorksByYear } from '../../utils/getWorks';
+
+const worksByYear = await getWorksByYear();
+---
+{worksByYear.map(([year, works]) => (
+  <section>
+    <div class="year-label">
+      <h3 class="year-number">{year}</h3>
+      <div class="year-line">
+        <BlogLine pcSize={100} smSize={100} />
+      </div>
+    </div>
+    <ol class="timeline">
+      {works.map((work) => {
+        const Item = work.data.link ? 'a' : 'div';
+        return (
+          <li>
+            <Item
+              class="timeline-item marker-trigger"
+              href={work.data.link}
+              target={work.data.link && '_blank'}
+              rel={work.data.link && 'noopener noreferrer'}
+            >
+              <time class="timeline-date">
+                {new Date(work.data.date).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </time>
+              <span class="timeline-title marker">{work.data.title}</span>
+              {work.data.tags.length > 0 && (
+                <div class="tags">
+                  {work.data.tags.map((tag) => <Tag hash>{tag}</Tag>)}
+                </div>
+              )}
+              <span class="timeline-description">{work.data.description}</span>
+            </Item>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+))}
+
+<style>
+  .year-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2.2rem 0 .6rem;
+  }
+  .year-number {
+    padding: .15rem 1.3rem;
+    color: var(--text-dark);
+    background-color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: normal;
+    clip-path: polygon(12% 0, 100% 0, 88% 100%, 0 100%);
+  }
+  .year-line {
+    flex: 1;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    position: relative;
+    padding-left: 2rem;
+    list-style: none;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    width: 1px;
+    height: calc(100% - 1rem);
+    background: var(--accent);
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 3.3rem 1fr auto;
+    align-items: baseline;
+    gap: .2rem 1rem;
+    padding: .7rem 1rem;
+    color: var(--text);
+    text-decoration: none;
+    backdrop-filter: blur(2px);
+    background-color: rgb(from var(--bg-mild) r g b / .5);
+    transition: all .3s;
+  }
+  .timeline-date {
+    font-size: .8rem;
+    opacity: .7;
+  }
+  .timeline-title {
+    font-size: 1rem;
+  }
+  .timeline-description {
+    grid-column: 2;
+    font-size: .8rem;
+    line-height: 1;
+    opacity: .7;
+  }
+  @media (hover: hover) {
+    .timeline-item:hover {
+      background-color: rgb(from var(--bg-mild) r g b / .7);
+    }
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-self: center;
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    gap: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-item {
+      grid-template-columns: 1fr;
+    }
+    .timeline-description, .tags {
+      grid-column: 1;
+      grid-row: auto;
+      justify-content: flex-start;
+      margin-top: .2rem;
+    }
+  }
+</style>

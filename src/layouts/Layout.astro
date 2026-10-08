@@ -1,0 +1,103 @@
+---
+import { withBase } from '../utils/path';
+
+const siteTitle = 'portfolio';
+
+interface Props {
+  pageTitle?: string; // top のみなし
+  ogDescription?: string;
+  isBlog?: boolean;
+}
+
+const { pageTitle, ogDescription, isBlog } = Astro.props;
+// const OGImage = new URL("/images/ogp.png", Astro.site).toString();
+// const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
+---
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={ogDescription} />
+    <link rel="icon" href={withBase('/images/favicon.ico')} />
+    {isBlog && (
+      <link rel="alternate" type="application/rss+xml" title={`${siteTitle} | Blog`} href={withBase('/rss.xml')} />
+    )}
+    <link rel="sitemap" href={withBase('/sitemap.xml')} />
+    <title>{siteTitle}{pageTitle && ` | ${pageTitle}`}</title>
+    <meta property="og:title" content={pageTitle ?? siteTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteTitle} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle ?? siteTitle} />
+
+    <style>
+      :root {
+        --primary: #1a2a4f;
+        --text-dark: #0a0f1e;
+        --accent: #ff2a3d;
+        --bg: #0a0f1e;
+        --text: #fff3f1;
+        --bg-mild: #2a3a5f;
+        --link: #6088C6;
+        --marker: #c43967;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        color: var(--text);
+        line-height: 1.6;
+        background-color: var(--bg);
+      }
+      html {
+        height: 100dvh;
+      }
+      body {
+        background-image: radial-gradient(rgb(from var(--text) r g b / .5) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+    </style>
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: 'BIZ UDPゴシック', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      img {
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+      }
+      a {
+        color: var(--link);
+        text-underline-offset: .2rem;
+      }
+      .marker {
+        width: fit-content;
+        background: linear-gradient(currentcolor, currentcolor) left bottom / 100% 2px no-repeat,
+          linear-gradient(var(--marker), var(--marker)) right 60% / 0 .8em no-repeat;
+        transition: background-size .4s;
+      }
+      @media (hover: hover) {
+        .marker-trigger:hover .marker {
+          background-position: right bottom, left 60%;
+          background-size: 0 2px, 100% .8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <slot />
+
+  </body>
+</html>

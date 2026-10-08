@@ -1,0 +1,23 @@
+---
+interface Props {
+  hash?: boolean; // 先頭に # をつける
+}
+
+const { hash = false } = Astro.props;
+---
+<span class:list={['tag', { hash }]}><slot /></span>
+
+<style>
+  .tag {
+    padding: 2px 7px;
+    color: var(--text);
+    font-size: .8rem;
+    font-style: italic;
+    background: rgb(from var(--accent) r g b / .1);
+    border: 1px solid var(--accent);
+  }
+  .hash::before {
+    content: '#';
+    color: var(--accent);
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+import IconImage from '../IconImage.astro';
+import { withBase } from '../../utils/path';
+---
+<section class="hero">
+  <div class="hero-icon">
+    <IconImage imageSrc={withBase('/images/icon_base.avif')} hoverImageSrc={withBase('/images/icon_hover.avif')} />
+  </div>
+  <a
+    class="github-link"
+    href='https://github.com/coiluck'
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img src={withBase('/images/github.svg')} alt="" />
+    GitHub
+    <span class="github-arrow" aria-hidden="true">↗</span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  @media (max-width: 768px) {
+    .hero {
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
+  .github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .55rem 2rem .55rem 1.6rem;
+    color: var(--text-dark);
+    background-color: var(--text);
+    text-decoration: none;
+    letter-spacing: .05em;
+    clip-path: polygon(12% 0, 100% 0, 88% 100%, 0 100%);
+    transition: background-color .3s;
+  }
+  .github-link img {
+    width: 1.6em;
+    height: 1.6em;
+  }
+  .github-arrow {
+    font-size: .9rem;
+    transition: translate .3s;
+  }
+  @media (hover: hover) {
+    .github-link:hover {
+      background-color: var(--accent);
+    }
+    .github-link:hover .github-arrow {
+      translate: 4px -4px;
+    }
+  }
+</style>
