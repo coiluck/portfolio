@@ -7,7 +7,10 @@ const posts = defineCollection({
     pattern: "**/*.mdx",
     base: "./src/content/posts"
   }),
-  schema: z.object({}),
+  schema: z.object({
+    thumbnailSrc: z.string().optional(),
+    repositoryLink: z.string().optional(),
+  }),
 });
 
 const works = defineCollection({
@@ -16,7 +19,6 @@ const works = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     date: z.string(),
-    thumbnailSrc: z.string().optional(),
     tags: z.array(z.string()).default([]),
     link: z.string().optional(),
     featured: z.boolean().default(false),

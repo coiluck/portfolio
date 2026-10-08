@@ -1,0 +1,39 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+<div class="point">
+  <span class="point-label">{label}</span>
+  <div class="point-body"><slot /></div>
+</div>
+
+<style>
+  .point {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: .8rem 1rem;
+    background-color: rgb(from var(--bg-mild) r g b / .45);
+  }
+  .point:has(+ .point) {
+    margin-bottom: .5rem;
+  }
+  .point-label {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 3.6rem;
+    aspect-ratio: 2 / 1.732; /* 正六角形の 幅：高さ = 2：√3 */
+    color: var(--text-dark);
+    background-color: var(--accent);
+    font-size: .8rem;
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  }
+  .point-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

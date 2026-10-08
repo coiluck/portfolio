@@ -1,0 +1,173 @@
+.prose {
+  line-height: 1.7;
+  counter-reset: sec; /* h2 の連番 */
+}
+@media (max-width: 480px) {
+  .prose {
+    font-size: .95rem;
+  }
+}
+.prose a {
+  color: var(--text);
+  text-decoration-color: var(--text);
+}
+.prose img {
+  display: block;
+  width: 90%;
+  height: auto;
+  margin: 5px auto;
+}
+
+.prose h2 {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin: 3rem 0 1rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+  counter-increment: sec;
+}
+.prose h2::before {
+  content: counter(sec, decimal-leading-zero);
+  flex-shrink: 0;
+  width: 2.6rem;
+  color: var(--text-dark);
+  background-color: var(--accent);
+  font-size: .8rem;
+  text-align: center;
+  clip-path: polygon(22% 0, 100% 0, 78% 100%, 0 100%);
+}
+.prose h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: rgb(from var(--text) r g b / .7);
+}
+.prose h3, .prose h4 {
+  position: relative;
+  width: fit-content;
+}
+.prose h3 {
+  margin: 1.6rem 0 .7rem;
+  padding: 0 .5rem 0 1.2rem;
+  font-size: 1.1rem;
+  border-bottom: 2px solid var(--accent);
+}
+.prose h3::before {
+  content: '#';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.prose h4 {
+  margin: 1rem 0 .4rem;
+  padding: 0 .5rem 0 1rem;
+  font-size: 1rem;
+  border-left: 3px solid var(--accent);
+}
+
+.prose p {
+  margin-bottom: 1rem;
+}
+.prose strong {
+  background: linear-gradient(transparent 60%, rgb(from var(--marker) r g b / .6) 60%);
+}
+.prose ul, .prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.prose li::marker {
+  color: var(--accent);
+}
+
+/* 表 */
+.prose table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  border-top: 1px solid rgb(from var(--text) r g b / .35);
+}
+.prose th, .prose td {
+  padding: .55rem .6rem;
+  text-align: left;
+  border-bottom: 1px solid rgb(from var(--text) r g b / .35);
+}
+.prose th {
+  font-size: .8rem;
+  font-style: italic;
+  font-weight: normal;
+  opacity: .7;
+}
+.prose td:first-child {
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .prose table {
+    font-size: .85rem;
+  }
+}
+
+/* 引用 */
+.prose blockquote {
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-left: 4px solid var(--accent);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
+}
+.prose blockquote p {
+  margin: 0;
+}
+
+.prose code:not(pre code) {
+  padding: 0.15rem 0.4rem;
+  background-color: #484848;
+  border-radius: 3px;
+  font-size: .8em;
+  font-family: monospace;
+}
+.prose pre {
+  margin: 1.2rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: .8em;
+}
+
+.prose hr {
+  margin: 1rem 0;
+  height: 1px;
+  border: 0;
+  background: var(--text);
+}
+
+/* 脚注（[^1]） */
+.prose .footnotes {
+  margin-top: 32px;
+  border-top: 1px dashed #888;
+}
+.prose .footnotes h2 {
+  display: none;
+}
+.prose .footnotes ol {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin: 2rem 0;
+  padding-left: 1rem;
+}
+.prose .footnotes p {
+  margin-bottom: 0;
+}
+.prose sup a, .prose a.data-footnote-backref {
+  color: var(--link);
+  text-decoration: none;
+}
+
+/* キャプション */
+.prose figure {
+  margin-bottom: 5px;
+}
+.prose figure figcaption {
+  text-align: center;
+  font-size: .8rem;
+  opacity: .7;
+}

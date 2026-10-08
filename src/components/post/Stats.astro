@@ -1,0 +1,39 @@
+---
+interface Props {
+  items: { value: string; label: string }[];
+}
+
+const { items } = Astro.props;
+---
+<dl class="stats">
+  {items.map(({ value, label }) => (
+    <div class="stat">
+      <dt>{label}</dt>
+      <dd>{value}</dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: .8rem;
+    margin-bottom: 1.2rem;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: .2rem;
+    padding: .8rem 1rem;
+    background-color: rgb(from var(--bg-mild) r g b / .4);
+  }
+  .stat dd {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+  .stat dt {
+    font-size: .75rem;
+    opacity: .7;
+  }
+</style>

@@ -10,7 +10,7 @@ const featuredWorks = await getFeaturedWorks();
     <li>
       <a class="pickup-card" href={withBase(`/works/${post.id}/`)}>
         <div class="pickup-thumb">
-          {work.data.thumbnailSrc && <img src={work.data.thumbnailSrc} alt="" loading="lazy" />}
+          {post.data.thumbnailSrc && <img src={withBase(post.data.thumbnailSrc)} alt="" loading="lazy" />}
         </div>
         <div class="pickup-body">
           <div class="pickup-head">

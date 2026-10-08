@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import WorkHeader from '../../components/works/WorkHeader.astro';
 import { getSortedPosts, renderPost } from '../../utils/getWorks';
+import { withBase } from '../../utils/path';
+import '../../styles/article.css';
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
@@ -14,11 +17,75 @@ export async function getStaticPaths() {
 }
 
 const { work, post } = Astro.props;
+const { title, description, date, tags, link } = work.data;
+const { thumbnailSrc, repositoryLink } = post.data;
 
 const { Content } = await renderPost(post);
 ---
-<Layout pageTitle={work.data.title}>
-  <div class="content">
-    <Content />
-  </div>
+<Layout pageTitle={title} ogDescription={description}>
+  <main>
+    <article>
+      <WorkHeader
+        title={title}
+        description={description}
+        date={date}
+        tags={tags}
+        link={link}
+        thumbnailSrc={thumbnailSrc}
+        repositoryLink={repositoryLink}
+      />
+
+      <div class="content prose">
+        <Content />
+      </div>
+    </article>
+
+    <a class="back-link" href={withBase('/')}>← トップへ戻る</a>
+  </main>
+
+  <style>
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 70%;
+      margin: 0 auto;
+      padding: 5rem 0;
+    }
+    @media (max-width: 768px) {
+      main {
+        width: 90%;
+        padding: 3rem 0;
+      }
+    }
+
+    .back-link {
+      width: fit-content;
+      color: var(--text);
+      font-size: .85rem;
+      text-decoration: none;
+      opacity: .75;
+      transition: opacity .2s, color .2s;
+    }
+    @media (hover: hover) {
+      .back-link:hover {
+        color: var(--accent);
+        opacity: 1;
+      }
+    }
+
+    article {
+      background: rgb(from var(--bg) r g b / .88);
+    }
+
+    .content {
+      padding: 0 2rem 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        padding: 0 1rem 2rem;
+      }
+    }
+  </style>
 </Layout>

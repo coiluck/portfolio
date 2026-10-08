@@ -15,7 +15,9 @@
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.2",
     "@astrojs/mdx": "^8.0.2",
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "mermaid": "^12.1.0",
+    "satteri": "^0.10.5"
   },
   "allowScripts": {
     "esbuild": true

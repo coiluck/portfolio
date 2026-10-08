@@ -1,0 +1,51 @@
+---
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+---
+<pre class="mermaid">{code.trim()}</pre>
+
+<script>
+  import mermaid from 'mermaid';
+
+  const color = (name: string) =>
+    getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      darkMode: true,
+      fontFamily: 'inherit',
+      background: color('--bg'),
+      primaryColor: color('--bg-mild'),
+      primaryTextColor: color('--text'),
+      primaryBorderColor: color('--accent'),
+      lineColor: color('--text'),
+      textColor: color('--text'),
+      noteBkgColor: color('--primary'),
+      noteTextColor: color('--text'),
+      noteBorderColor: color('--bg-mild'),
+      activationBkgColor: color('--accent'),
+      activationBorderColor: color('--accent'),
+    },
+  });
+  mermaid.run({ querySelector: '.mermaid' });
+</script>
+
+<style>
+  .mermaid {
+    display: flex;
+    justify-content: center;
+    margin: 1.2rem 0;
+    padding: 1rem;
+    overflow-x: auto;
+    background-color: rgb(from var(--bg-mild) r g b / .25);
+  }
+  /* 描画前のコード文字列は見せない */
+  .mermaid:not([data-processed]) {
+    visibility: hidden;
+  }
+</style>

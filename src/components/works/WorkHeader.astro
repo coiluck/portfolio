@@ -1,0 +1,124 @@
+---
+import LinkButton from '../LinkButton.astro';
+import Tag from '../Tag.astro';
+import { withBase } from '../../utils/path';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: string;
+  tags: string[];
+  link?: string;
+  thumbnailSrc?: string;
+  repositoryLink?: string;
+}
+
+const { title, description, date, tags, link, thumbnailSrc, repositoryLink } = Astro.props;
+---
+<header class="banner">
+  {thumbnailSrc && (
+    <img src={withBase(thumbnailSrc)} alt="" />
+  )}
+  <div class="banner-text">
+    <h1 class="post-title">{title}</h1>
+    {description && <p class="post-description">{description}</p>}
+    <div class="meta">
+      <time class="date" datetime={date}>{date.replaceAll('-', '.')}</time>
+      <div class="tags">
+        {tags.map((tag) => <Tag hash>{tag}</Tag>)}
+      </div>
+    </div>
+  </div>
+</header>
+
+{(link || repositoryLink) && (
+  <div class="links">
+    {link && <LinkButton href={link} text="作品を見る" />}
+    {repositoryLink && (
+      <LinkButton href={repositoryLink} text="GitHub">
+        <img class="github-icon" src={withBase('/images/github.svg')} alt="" />
+      </LinkButton>
+    )}
+  </div>
+)}
+
+<style>
+  /* バナー */
+  .banner {
+    position: relative;
+    height: clamp(10rem, 24vw, 15rem);
+    background: repeating-linear-gradient(-45deg, rgb(from var(--text) r g b / .06) 0 8px, transparent 8px 16px);
+    overflow: hidden;
+  }
+  .banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--bg) 5%, rgb(from var(--bg) r g b / .55) 50%, rgb(from var(--bg) r g b / .1));
+  }
+  .banner-text {
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+    left: 2rem;
+    z-index: 1;
+  }
+  .post-title {
+    font-size: 2.2rem;
+    line-height: 1.25;
+    text-shadow: 0 2px 8px rgb(0 0 0 / .5);
+  }
+  .post-description {
+    opacity: .85;
+  }
+  /* 日付・タグ */
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .4rem 1rem;
+    margin-top: .5rem;
+  }
+  .date {
+    font-size: .85rem;
+    opacity: .7;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  /* 作品・リポジトリへのリンク */
+  .links {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: .8rem;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgb(from var(--text) r g b / .2);
+  }
+  .github-icon {
+    width: 1.6em;
+    height: 1.6em;
+  }
+
+  @media (max-width: 768px) {
+    .banner-text {
+      right: 1rem;
+      left: 1rem;
+    }
+    .post-title {
+      font-size: 1.6rem;
+    }
+    .links {
+      padding: 1rem;
+    }
+  }
+</style>
