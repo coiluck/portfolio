@@ -1,0 +1,88 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BackToTop from '../../components/BackToTop.astro';
+import { getInternships, renderInternship } from '../../utils/getWorks';
+import { formatPeriod } from '../../utils/formatPeriod';
+import '../../styles/article.css';
+import '../../styles/plugin-note.css';
+
+export async function getStaticPaths() {
+  const internships = await getInternships();
+
+  return internships.map((internship) => ({
+    params: { slug: internship.id },
+    props: { internship },
+  }));
+}
+
+const { internship } = Astro.props;
+const { company, role } = internship.data;
+const period = formatPeriod(internship.data);
+
+const { Content } = await renderInternship(internship);
+---
+<Layout pageTitle={company} ogDescription={`${company} のインターン`}>
+  <main>
+    <article>
+      <header class="header">
+        <h1 class="company">{company}</h1>
+        <div class="meta">
+          {role && <span class="role">{role}</span>}
+          <span class="period">{period}</span>
+        </div>
+      </header>
+
+      <div class="content prose">
+        <Content />
+      </div>
+    </article>
+
+    <BackToTop />
+  </main>
+
+  <style>
+    main {
+      gap: 1.5rem;
+    }
+
+    article {
+      background: rgb(from var(--bg) r g b / .88);
+    }
+
+    .header {
+      padding: 2rem 2rem 1rem;
+      border-bottom: 2px solid var(--accent);
+    }
+    .company {
+      font-size: 2.2rem;
+      line-height: 1.25;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem 1rem;
+      margin-top: .5rem;
+      font-size: .85rem;
+      opacity: .7;
+    }
+    .role {
+      font-style: italic;
+    }
+
+    .content {
+      padding: 1rem 2rem 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 1.5rem 1rem 1rem;
+      }
+      .company {
+        font-size: 1.6rem;
+      }
+      .content {
+        padding: 1rem 1rem 2rem;
+      }
+    }
+  </style>
+</Layout>

@@ -43,6 +43,7 @@ const featuredWorks = await getFeaturedWorks();
     height: 100%;
     color: var(--text);
     text-decoration: none;
+    backdrop-filter: blur(1px);
     background-color: rgb(from var(--bg-mild) r g b / .45);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.2rem), calc(100% - 1.2rem) 100%, 0 100%);
     transition: background-color .3s;

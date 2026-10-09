@@ -77,6 +77,19 @@ const { pageTitle, ogDescription, isBlog } = Astro.props;
         -moz-user-drag: none;
         -o-user-drag: none;
       }
+      main {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        margin: 0 auto;
+        padding: 5rem 0;
+      }
+      @media (max-width: 768px) {
+        main {
+          width: 90%;
+          padding: 3rem 0;
+        }
+      }
       a {
         color: var(--link);
         text-underline-offset: .2rem;

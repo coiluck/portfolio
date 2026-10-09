@@ -1,8 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import BackToTop from '../../components/BackToTop.astro';
 import WorkHeader from '../../components/works/WorkHeader.astro';
 import { getSortedPosts, renderPost } from '../../utils/getWorks';
-import { withBase } from '../../utils/path';
 import '../../styles/article.css';
 
 export async function getStaticPaths() {
@@ -40,38 +40,12 @@ const { Content } = await renderPost(post);
       </div>
     </article>
 
-    <a class="back-link" href={withBase('/')}>← トップへ戻る</a>
+    <BackToTop />
   </main>
 
   <style>
     main {
-      display: flex;
-      flex-direction: column;
       gap: 1.5rem;
-      width: 70%;
-      margin: 0 auto;
-      padding: 5rem 0;
-    }
-    @media (max-width: 768px) {
-      main {
-        width: 90%;
-        padding: 3rem 0;
-      }
-    }
-
-    .back-link {
-      width: fit-content;
-      color: var(--text);
-      font-size: .85rem;
-      text-decoration: none;
-      opacity: .75;
-      transition: opacity .2s, color .2s;
-    }
-    @media (hover: hover) {
-      .back-link:hover {
-        color: var(--accent);
-        opacity: 1;
-      }
     }
 
     article {

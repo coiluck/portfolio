@@ -1,0 +1,14 @@
+---
+import { withBase } from '../../utils/path';
+
+interface Props {
+  src: string;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+<figure>
+  <img src={withBase(src)} alt={alt} loading="lazy" decoding="async">
+  {Astro.slots.has('default') && <figcaption><slot /></figcaption>}
+</figure>

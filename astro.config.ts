@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 
 import mdx from '@astrojs/mdx';
 import { satteri } from '@astrojs/markdown-satteri';
+import mdastNote from './src/plugins/mdast-note';
 import mdastFigureCaption from './src/plugins/mdast-figure-caption';
 import hastImageBase from './src/plugins/hast-image-base';
 
@@ -20,7 +21,7 @@ export default defineConfig({
       features: {
         directive: true,
       },
-      mdastPlugins: [mdastFigureCaption(base)],
+      mdastPlugins: [mdastNote(), mdastFigureCaption(base)],
       hastPlugins: [hastImageBase(base)],
     }),
   },

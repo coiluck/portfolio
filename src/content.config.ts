@@ -29,4 +29,21 @@ const works = defineCollection({
   }),
 });
 
-export const collections = { posts, works };
+const internships = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/content/internships"
+  }),
+  schema: z.object({
+    company: z.string(),
+    role: z.string(),
+    start: z.coerce.date(),
+    end: z.coerce.date(),
+    duration: z.number().int().positive().optional(), // 参加日数。省略時は start〜end の日数
+  }).refine((data) => data.start <= data.end, {
+    message: 'end は start 以降の日付にしてください',
+    path: ['end'],
+  }),
+});
+
+export const collections = { posts, works, internships };

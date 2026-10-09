@@ -1,5 +1,5 @@
 import { getCollection, getEntry, render } from 'astro:content';
-import { type Work, type Post } from './type';
+import { type Work, type Post, type Internship } from './type';
 
 // 日付の新しい順
 function byDateDesc(a: Work, b: Work): number {
@@ -28,7 +28,7 @@ export async function getFeaturedWorks(): Promise<{ work: Work; post: Post }[]> 
   return pairs.filter(({ work }) => work.data.featured);
 }
 
-// 全作品を年ごとにまとめる（年・作品とも新しい順）
+// 全作品を年ごとにまとめる
 export async function getWorksByYear(): Promise<[number, Work[]][]> {
   const works: Work[] = (await getCollection('works')).sort(byDateDesc);
 
@@ -40,7 +40,18 @@ export async function getWorksByYear(): Promise<[number, Work[]][]> {
   return [...groups];
 }
 
+// インターン経験
+export async function getInternships(): Promise<Internship[]> {
+  const internships: Internship[] = await getCollection('internships');
+  return internships.sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
+}
+
 // 詳細記事の本文
 export async function renderPost(post: Post) {
   return render(post);
+}
+
+// インターン経験の本文
+export async function renderInternship(internship: Internship) {
+  return render(internship);
 }

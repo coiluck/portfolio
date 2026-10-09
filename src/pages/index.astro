@@ -5,6 +5,7 @@ import Hero from '../components/top/Hero.astro';
 import SkillTable from '../components/top/SkillTable.astro';
 import PickupList from '../components/top/PickupList.astro';
 import WorksTimeline from '../components/top/WorksTimeline.astro';
+import InternshipList from '../components/top/InternshipList.astro';
 
 const skills = [
   { category: 'Language',  items: ['TypeScript', 'Python'] },
@@ -24,6 +25,11 @@ const skills = [
     </section>
 
     <section>
+      <SectionTitle>Internship</SectionTitle>
+      <InternshipList />
+    </section>
+
+    <section>
       <SectionTitle>Posts</SectionTitle>
       <PickupList />
     </section>
@@ -36,12 +42,7 @@ const skills = [
 
   <style>
     main {
-      display: flex;
-      flex-direction: column;
       gap: 4rem;
-      width: 70%;
-      margin: 0 auto;
-      padding: 5rem 1rem;
       counter-reset: sec;
     }
   </style>

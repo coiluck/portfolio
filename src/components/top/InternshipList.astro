@@ -1,0 +1,104 @@
+---
+import { getInternships } from '../../utils/getWorks';
+import { withBase } from '../../utils/path';
+import { formatPeriod } from '../../utils/formatPeriod';
+
+const internships = await getInternships();
+---
+<ol class="internships">
+  {internships.map((internship, index) => (
+    <li>
+      <a class="internship" href={withBase(`/internships/${internship.id}/`)} style={`--i: ${index}`}>
+        <span class="internship-period">{formatPeriod(internship.data)}</span>
+        <span class="internship-body">
+          <span class="internship-text">
+            <span class="internship-company">{internship.data.company}</span>
+            <span class="internship-role">{internship.data.role}</span>
+          </span>
+          <span class="internship-go">詳細</span>
+        </span>
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .internships {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    list-style: none;
+  }
+  .internship {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    transition: translate .25s;
+  }
+  /* フォルダの見出しタブ */
+  .internship-period {
+    display: inline-block;
+    margin-left: calc(var(--i) * 9rem);
+    padding: .3rem 1.6rem .15rem;
+    font-size: .75rem;
+    backdrop-filter: blur(1px);
+    background-color: rgb(from var(--bg-mild) r g b / .45);
+    clip-path: polygon(.8rem 0, calc(100% - .8rem) 0, 100% 100%, 0 100%);
+    transition: background-color .3s, color .3s;
+  }
+  .internship-period::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: .5rem;
+    vertical-align: .1em;
+    background-color: var(--accent);
+    transition: background-color .3s;
+  }
+  .internship-body {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .9rem 1.4rem;
+    backdrop-filter: blur(1px);
+    background-color: rgb(from var(--bg-mild) r g b / .45);
+  }
+  .internship-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .internship-company {
+    font-size: 1.1rem;
+  }
+  .internship-role {
+    font-size: .8rem;
+    font-style: italic;
+    opacity: .7;
+  }
+  .internship-go {
+    color: var(--accent);
+    font-size: .75rem;
+  }
+  .internship-go::after {
+    content: ' →';
+  }
+  @media (hover: hover) {
+    .internship:hover .internship-period {
+      color: var(--text-dark);
+      background-color: var(--accent);
+    }
+    .internship:hover .internship-period::before {
+      background-color: var(--text-dark);
+    }
+    .internship:hover .internship-body {
+      background-color: rgb(from var(--bg-mild) r g b / .75);
+    }
+  }
+  @media (max-width: 768px) {
+    .internship-period {
+      margin-left: calc(var(--i) * 2rem);
+    }
+  }
+</style>
