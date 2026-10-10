@@ -107,6 +107,11 @@
   }
 }
 
+/* コードブロック */
+.prose pre {
+  scrollbar-color: #888 transparent;
+}
+
 /* 引用 */
 .prose blockquote {
   padding: 10px 15px;

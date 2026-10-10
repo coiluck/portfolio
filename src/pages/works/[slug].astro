@@ -8,17 +8,16 @@ import '../../styles/article.css';
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
 
-  return posts.map(({ work, post }) => {
+  return posts.map((post) => {
     return {
       params: { slug: post.id },
-      props: { work, post },
+      props: { post },
     };
   });
 }
 
-const { work, post } = Astro.props;
-const { title, description, date, tags, link } = work.data;
-const { thumbnailSrc, repositoryLink } = post.data;
+const { post } = Astro.props;
+const { title, description, tags, thumbnailSrc, workLink, repositoryLink } = post.data;
 
 const { Content } = await renderPost(post);
 ---
@@ -28,9 +27,8 @@ const { Content } = await renderPost(post);
       <WorkHeader
         title={title}
         description={description}
-        date={date}
         tags={tags}
-        link={link}
+        link={workLink}
         thumbnailSrc={thumbnailSrc}
         repositoryLink={repositoryLink}
       />

@@ -1,0 +1,23 @@
+---
+import { withBase } from '../../utils/path';
+
+interface Props {
+  src: string;
+  poster?: string;
+}
+
+const { src, poster } = Astro.props;
+---
+<figure>
+  <video src={withBase(src)} poster={poster && withBase(poster)} controls muted playsinline preload="none"></video>
+  {Astro.slots.has('default') && <figcaption><slot /></figcaption>}
+</figure>
+
+<style>
+  video {
+    display: block;
+    width: 90%;
+    height: auto;
+    margin: 5px auto;
+  }
+</style>

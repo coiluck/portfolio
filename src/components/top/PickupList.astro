@@ -1,12 +1,12 @@
 ---
 import Tag from '../Tag.astro';
-import { getFeaturedWorks } from '../../utils/getWorks';
+import { getSortedPosts } from '../../utils/getWorks';
 import { withBase } from '../../utils/path';
 
-const featuredWorks = await getFeaturedWorks();
+const posts = await getSortedPosts();
 ---
 <ul class="pickup">
-  {featuredWorks.map(({ work, post }) => (
+  {posts.map((post) => (
     <li>
       <a class="pickup-card" href={withBase(`/works/${post.id}/`)}>
         <div class="pickup-thumb">
@@ -14,15 +14,14 @@ const featuredWorks = await getFeaturedWorks();
         </div>
         <div class="pickup-body">
           <div class="pickup-head">
-            <span class="pickup-title">{work.data.title}</span>
-            <time datetime={work.data.date}>{work.data.date.replaceAll('-', '.')}</time>
+            <span class="pickup-title">{post.data.title}</span>
+            {post.data.tags.length > 0 && (
+              <div class="pickup-tags">
+                {post.data.tags.map((tag) => <Tag>{tag}</Tag>)}
+              </div>
+            )}
           </div>
-          {work.data.description && <p class="pickup-description">{work.data.description}</p>}
-          {work.data.tags.length > 0 && (
-            <div class="pickup-tags">
-              {work.data.tags.map((tag) => <Tag>{tag}</Tag>)}
-            </div>
-          )}
+          {post.data.description && <p class="pickup-description">{post.data.description}</p>}
           <span class="pickup-read">詳細を読む</span>
         </div>
       </a>
@@ -70,16 +69,12 @@ const featuredWorks = await getFeaturedWorks();
   }
   .pickup-head {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: .5rem;
   }
   .pickup-title {
     font-size: 1.15rem;
-  }
-  .pickup-head time {
-    font-size: .75rem;
-    opacity: .7;
   }
   .pickup-description {
     font-size: .8rem;
@@ -88,6 +83,7 @@ const featuredWorks = await getFeaturedWorks();
   .pickup-tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 5px;
   }
   .pickup-read {

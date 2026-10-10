@@ -6,14 +6,13 @@ import { withBase } from '../../utils/path';
 interface Props {
   title: string;
   description?: string;
-  date: string;
   tags: string[];
   link?: string;
   thumbnailSrc?: string;
   repositoryLink?: string;
 }
 
-const { title, description, date, tags, link, thumbnailSrc, repositoryLink } = Astro.props;
+const { title, description, tags, link, thumbnailSrc, repositoryLink } = Astro.props;
 ---
 <header class="banner">
   {thumbnailSrc && (
@@ -21,12 +20,13 @@ const { title, description, date, tags, link, thumbnailSrc, repositoryLink } = A
   )}
   <div class="banner-text">
     <h1 class="post-title">{title}</h1>
-    {description && <p class="post-description">{description}</p>}
     <div class="meta">
-      <time class="date" datetime={date}>{date.replaceAll('-', '.')}</time>
-      <div class="tags">
-        {tags.map((tag) => <Tag hash>{tag}</Tag>)}
-      </div>
+      <>
+        {description && <p class="post-description">{description}</p>}
+        <div class="tags">
+          {tags.map((tag) => <Tag hash>{tag}</Tag>)}
+        </div>
+      </>
     </div>
   </div>
 </header>
@@ -84,10 +84,6 @@ const { title, description, date, tags, link, thumbnailSrc, repositoryLink } = A
     align-items: center;
     gap: .4rem 1rem;
     margin-top: .5rem;
-  }
-  .date {
-    font-size: .85rem;
-    opacity: .7;
   }
   .tags {
     display: flex;

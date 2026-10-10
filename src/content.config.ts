@@ -1,4 +1,4 @@
-import { defineCollection, reference } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod'
 import { file, glob } from 'astro/loaders';
 
@@ -8,7 +8,12 @@ const posts = defineCollection({
     base: "./src/content/posts"
   }),
   schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    order: z.number(), // トップの Posts での並び順（小さいほど先）
     thumbnailSrc: z.string().optional(),
+    workLink: z.string().optional(),
     repositoryLink: z.string().optional(),
   }),
 });
@@ -21,11 +26,6 @@ const works = defineCollection({
     date: z.string(),
     tags: z.array(z.string()).default([]),
     link: z.string().optional(),
-    featured: z.boolean().default(false),
-    post: reference('posts').optional() // 詳細記事がある作品のみ
-  }).refine((data) => !data.featured || data.post, {
-    message: 'featured: true の作品には post が必要です',
-    path: ['post'],
   }),
 });
 

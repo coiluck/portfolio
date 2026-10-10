@@ -1,0 +1,78 @@
+---
+interface Props {
+  date: string;
+  title?: string;
+  done: string;      // その版でできるようになったこと
+  issue?: string;    // その版で残った問題
+  current?: boolean; // 強調するか
+}
+
+const { date, title, done, issue, current = false } = Astro.props;
+---
+<li class:list={['timeline-item', { current }]}>
+  <div class="timeline-head">
+    <span class="timeline-date">{date}</span>
+    {title && <span class="timeline-title">{title}</span>}
+  </div>
+  <div class="timeline-done">{done}</div>
+  {issue && <div class="timeline-issue">{issue}</div>}
+</li>
+
+<style>
+  .timeline-item {
+    position: relative;
+    margin-left: .4rem;
+    padding: .6rem 1rem .6rem 1.4rem;
+    border-left: 2px solid rgb(from var(--accent) r g b / .5);
+  }
+  .timeline-item.current {
+    background-color: rgb(from var(--accent) r g b / .1);
+  }
+  /* 年表の点 */
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: -1px;
+    translate: -50% -50%;
+    width: .7rem;
+    aspect-ratio: 2 / 1.732; /* 正六角形の 幅：高さ = 2：√3 */
+    background-color: var(--accent);
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  }
+
+  .timeline-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 .8rem;
+    margin-bottom: .2rem;
+  }
+  .timeline-date {
+    font-size: .75rem;
+    opacity: .7;
+  }
+  .timeline-title {
+    font-weight: bold;
+  }
+
+  .timeline-done, .timeline-issue {
+    padding-left: 1.2rem;
+    font-size: .85rem;
+    line-height: 1.6;
+    text-indent: -1.2rem;
+  }
+  .timeline-done::before, .timeline-issue::before {
+    display: inline-block;
+    width: 1.2rem;
+    text-indent: 0;
+  }
+  .timeline-done::before {
+    content: '✓';
+    color: var(--accent);
+  }
+  .timeline-issue::before {
+    content: '✕';
+    opacity: .7;
+  }
+</style>
