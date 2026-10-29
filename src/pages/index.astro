@@ -8,9 +8,11 @@ import WorksTimeline from '../components/top/WorksTimeline.astro';
 import InternshipList from '../components/top/InternshipList.astro';
 
 const skills = [
-  { category: 'Language',  items: ['TypeScript', 'Python'] },
-  { category: 'Framework', items: ['Astro', 'React'] },
-  { category: 'Tool',      items: ['Git'] },
+  { category: 'Language', items: ['TypeScript', 'JavaScript', 'Python', 'PHP', 'SQL'] },
+  { category: 'Frontend', items: ['React', 'zustand', 'Vite', 'Astro'] },
+  { category: 'Backend',  items: ['Cloudflare Workers', 'Cloudflare D1', 'FastAPI', 'Google Apps Script'] },
+  { category: 'App',      items: ['Tauri', 'Electron', 'PWA'] },
+  { category: 'Tool',     items: ['Vitest', 'Git', 'Claude Code', 'Cursor'] },
 ];
 ---
 <Layout ogDescription="ポートフォリオ">
@@ -19,19 +21,20 @@ const skills = [
 
     <section>
       <SectionTitle>About</SectionTitle>
+      <p>使う人が実際にどこで手間を感じるかを起点に、作るものを決めています。</p>
       <p>法学部に通う2028年卒業予定の学生です。大学に入ってから独学でプログラミングを始め、TypeScript と React を中心に、ゲームなどを個人で作り続けています。完成したら友人に遊んでもらい、その感想を次の作品に活かすことを3年間続けてきました。そのうち1本は DLsite で販売しています。</p>
-      <p>現在は就活支援サービスを運営する会社でフロントエンドのアルバイトをしながら、実際のコードベースで開発しています。今後は使う人の不便を出発点に、もっと多くの人に届くプロダクトを作りたいと考えています。</p>
+      <p>現在は就活支援サービスを運営する会社で社内SEのアルバイトをしながら、実際のコードベースで開発しています。今後は、この進め方をもっと多くの人に届くプロダクトで続けたいと考えています。</p>
       <SkillTable skills={skills} />
-    </section>
-
-    <section>
-      <SectionTitle>Internship</SectionTitle>
-      <InternshipList />
     </section>
 
     <section>
       <SectionTitle>Posts</SectionTitle>
       <PickupList />
+    </section>
+
+    <section>
+      <SectionTitle>Internship</SectionTitle>
+      <InternshipList />
     </section>
 
     <section>
